@@ -12,6 +12,7 @@ import UIKit
 class MainCollCell: UICollectionViewCell {
     
     @IBOutlet var titleLbl: UILabel!
+    @IBOutlet var cellBtn: UIButton!
 
     
 }

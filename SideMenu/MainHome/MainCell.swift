@@ -8,14 +8,26 @@
 import Foundation
 import UIKit
 
+protocol CollectionItemDelegate {
+    func selectedCell(_ row: Int)
+}
+
+
 class MainCell: UITableViewCell {
 
     @IBOutlet weak var iconImg: UIImageView!
     @IBOutlet weak var titleNMLbl: UILabel!
+    var delegate: CollectionItemDelegate?
+
+    @IBOutlet weak var collectionView: UICollectionView!
+    var categoriesColl = ["1", "2", "3", "4", "5","6", "7","8","9","10"]
 
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        collectionView.delegate = self
+        collectionView.dataSource = self
+
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -25,24 +37,30 @@ class MainCell: UITableViewCell {
     }
 
 }
-extension MainCell : UICollectionViewDataSource {
+extension MainCell : UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
+        return categoriesColl.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         let homeCollnCell = collectionView.dequeueReusableCell(withReuseIdentifier: "MainCollnCell", for: indexPath) as!  MainCollCell
-        homeCollnCell.titleLbl.text = "Name: " + String(indexPath.row)
-        
+        homeCollnCell.titleLbl.text = "Name: " + categoriesColl[indexPath.row]
+        homeCollnCell.cellBtn.tag = indexPath.row
+        homeCollnCell.cellBtn.addTarget(self, action: #selector(actionBtn(sender:)), for: .touchUpInside)
         
         return homeCollnCell
         
     }
     
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print("indexPAth", indexPath.row)
+    @objc func actionBtn(sender: UIButton) {
+        print("indexPAth", sender.tag)
+        print("print")
+        
     }
+
+    
+    
     
     
 }
