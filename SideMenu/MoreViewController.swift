@@ -23,6 +23,7 @@ class MoreViewController: UIViewController {
     private var revealSideMenuOnTop: Bool = true
     @IBOutlet var sideMenuBtn: UIBarButtonItem!
 
+    @IBOutlet weak var containVIEW: UIView!
     var gestureEnabled: Bool = true
 
     override func viewDidLoad() {
@@ -30,8 +31,8 @@ class MoreViewController: UIViewController {
         
         //nav bTN
         navigationController?.navigationBar.tintColor = .white
-        sideMenuBtn.target = revealViewController()
-        sideMenuBtn.action = #selector(revealViewController()?.revealSideMenu)
+        sideMenuBtn.target = revealViewController1()
+        sideMenuBtn.action = #selector(revealViewController1()?.revealSideMenu)
         
 
         // Shadow Background View
@@ -44,7 +45,7 @@ class MoreViewController: UIViewController {
         tapGestureRecognizer.delegate = self
         view.addGestureRecognizer(tapGestureRecognizer)
         if self.revealSideMenuOnTop {
-            view.insertSubview(self.sideMenuShadowView, at: 1)
+            containVIEW.insertSubview(self.sideMenuShadowView, at: 1)
         }
 
         // Side Menu
@@ -299,21 +300,21 @@ extension MoreViewController: UIGestureRecognizerDelegate {
     }
 }
 
-//extension UIViewController {
-//
-//    // With this extension you can access the MainViewController from the child view controllers.
-//    func revealViewController() -> MainViewController? {
-//        var viewController: UIViewController? = self
-//
-//        if viewController != nil && viewController is MainViewController {
-//            return viewController! as? MainViewController
-//        }
-//        while (!(viewController is MainViewController) && viewController?.parent != nil) {
-//            viewController = viewController?.parent
-//        }
-//        if viewController is MainViewController {
-//            return viewController as? MainViewController
-//        }
-//        return nil
-//    }
-//}
+extension UIViewController {
+
+    // With this extension you can access the MainViewController from the child view controllers.
+    func revealViewController1() -> MoreViewController? {
+        var viewController: UIViewController? = self
+
+        if viewController != nil && viewController is MoreViewController {
+            return viewController! as? MoreViewController
+        }
+        while (!(viewController is MoreViewController) && viewController?.parent != nil) {
+            viewController = viewController?.parent
+        }
+        if viewController is MoreViewController {
+            return viewController as? MoreViewController
+        }
+        return nil
+    }
+}

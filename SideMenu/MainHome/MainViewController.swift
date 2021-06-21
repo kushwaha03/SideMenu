@@ -22,6 +22,7 @@ class MainViewController: UIViewController {
 
     private var revealSideMenuOnTop: Bool = true
     @IBOutlet var sideMenuBtn: UIBarButtonItem!
+    @IBOutlet weak var containVIEW: UIView!
 
     var gestureEnabled: Bool = true
     
@@ -47,7 +48,7 @@ class MainViewController: UIViewController {
         tapGestureRecognizer.delegate = self
         view.addGestureRecognizer(tapGestureRecognizer)
         if self.revealSideMenuOnTop {
-            view.insertSubview(self.sideMenuShadowView, at: 1)
+            containVIEW.insertSubview(self.sideMenuShadowView, at: 1)
         }
 
         // Side Menu
